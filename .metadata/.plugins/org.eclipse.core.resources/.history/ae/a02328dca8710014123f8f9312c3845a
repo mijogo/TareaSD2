@@ -1,0 +1,5 @@
+package cl.utfsm.inf.rmi.intefaces;
+
+public class TokenServiceMgr {
+
+}
