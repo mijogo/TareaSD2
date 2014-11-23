@@ -1,0 +1,5 @@
+package cl.utfsm.inf.rmi.semaforo;
+
+public class RToken {
+
+}

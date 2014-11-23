@@ -1,0 +1,8 @@
+package cl.utfsm.inf.rmi.semaforo;
+
+import cl.utfsm.inf.rmi.intefaces.*;
+
+public class Rtoken implements Token {
+{
+
+}
