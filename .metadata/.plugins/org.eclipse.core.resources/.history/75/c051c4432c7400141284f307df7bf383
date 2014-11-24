@@ -1,0 +1,48 @@
+package cl.utfsm.inf.rmi.semaforo;
+
+import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import cl.utfsm.inf.rmi.intefaces.TokenServiceMgr;
+import cl.utfsm.inf.rmi.intefaces.TokenServiceProxy;
+
+public class RTokenServiceProxy implements TokenServiceProxy {
+	private static List synchedList = Collections.synchronizedList(new LinkedList());
+	public RTokenServiceProxy(String prog,String n,String id)
+	{
+		try
+		{
+	            
+	        Registry registry = LocateRegistry.getRegistry(prog);
+	        TokenServiceMgr UTokenServiceMgr = new RTokenServiceMgr(synchedList);
+	        TokenServiceMgr stub2 = (TokenServiceMgr) UnicastRemoteObject.exportObject((Remote) UTokenServiceMgr, 0);
+	        registry.rebind("Tproceso"+id,(Remote) stub2); 
+		} catch (Exception e) {
+            System.err.println(" " + e.getMessage());
+            e.printStackTrace();
+        }
+	}
+	@Override
+	public void getToken() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void freeToken() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean hasToken() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

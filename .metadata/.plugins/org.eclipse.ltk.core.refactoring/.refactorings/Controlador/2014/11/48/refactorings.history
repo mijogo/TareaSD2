@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;RToken.java&apos; to &apos;cl.utfsm.inf.rmi.semaforo.RTokenServiceMgr.java&apos;&#x0D;&#x0A;- Original project: &apos;Controlador&apos;&#x0D;&#x0A;- Destination element: &apos;cl.utfsm.inf.rmi.semaforo.RTokenServiceMgr.java&apos;&#x0D;&#x0A;- Original element: &apos;cl.utfsm.inf.rmi.controlador.RToken.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=Semaforo/src&lt;cl.utfsm.inf.rmi.semaforo{RTokenServiceMgr.java" element1="/src&lt;cl.utfsm.inf.rmi.controlador{RToken.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1416869020593" units="1" version="1.0"/>
+</session>
