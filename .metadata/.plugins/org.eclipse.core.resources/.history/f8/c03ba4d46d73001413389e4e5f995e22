@@ -32,7 +32,7 @@ public class Semaforo {
             TokenServiceProxy[] comp = new TokenServiceProxy[Integer.parseInt(args[1])];
         	for(int i=0;i<=Integer.parseInt(args[1]);i++)
         	{
-        		comp[i] = (TokenServiceProxy) registry.lookup("Uproceso"+i);
+        		comp[i] = (TokenServiceProxy) registry.lookup("proceso"+i);
         	}
             
         	Token UToken= (Token) registry.lookup(NToken);

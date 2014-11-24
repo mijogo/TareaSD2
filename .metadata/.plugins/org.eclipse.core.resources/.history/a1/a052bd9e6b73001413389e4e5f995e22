@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class Controlador 
 {
 	private String[] proceso;
-	private static String NToken = "UToken";
+	private String NToken = "UToken";
 	
 	public static void main(String[] args) 
 	{
@@ -20,17 +20,16 @@ public class Controlador
         }
         try 
         {
+        	Token[] comp = new Token[Integer.parseInt(args[1])];
             Registry registry = LocateRegistry.getRegistry(args[0]);
-            
-        	TokenServiceMgr[] comp = new TokenServiceMgr[Integer.parseInt(args[1])];
         	for(int i=0;i<=Integer.parseInt(args[1]);i++)
         	{
-        		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
+        		comp[i] = (Token) registry.lookup("proceso"+i);
         	}
         	
             Token UToken = new RToken();
 			Token stub = (Token) UnicastRemoteObject.exportObject((Remote) UToken, 0);
-            registry.rebind(NToken, (Remote) stub);
+            registry.rebind(NToken, stub);
             
             
         } catch (Exception e) {

@@ -10,7 +10,6 @@ import cl.utfsm.inf.rmi.intefaces.*;
 public class Semaforo {
 	private static String Uproceso = "Uproceso1";
 	private static String Tproceso = "Tproceso1";
-	private static String NToken = "UToken";
 	public static void main(String[] args) 
 	{
 		if (System.getSecurityManager() == null) 
@@ -32,10 +31,9 @@ public class Semaforo {
             TokenServiceProxy[] comp = new TokenServiceProxy[Integer.parseInt(args[1])];
         	for(int i=0;i<=Integer.parseInt(args[1]);i++)
         	{
-        		comp[i] = (TokenServiceProxy) registry.lookup("Uproceso"+i);
+        		comp[i] = (TokenServiceProxy) registry.lookup("proceso"+i);
         	}
             
-        	Token UToken= (Token) registry.lookup(NToken);
             
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());

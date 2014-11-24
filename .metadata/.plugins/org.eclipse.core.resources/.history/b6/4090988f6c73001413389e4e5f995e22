@@ -1,0 +1,30 @@
+package cl.utfsm.inf.rmi.semaforo;
+
+import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
+import cl.utfsm.inf.rmi.controlador.RToken;
+import cl.utfsm.inf.rmi.intefaces.*;
+
+public class Semaforo {
+	private static String Uproceso = "Uproceso1";
+	public static void main(String[] args) 
+	{
+		if (System.getSecurityManager() == null) 
+		{
+            System.setSecurityManager(new SecurityManager());
+        }
+		try
+		{
+            Registry registry = LocateRegistry.getRegistry(args[0]);
+            
+            TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy();
+            TokenServiceProxy stub = (TokenServiceProxy) UnicastRemoteObject.exportObject((Remote) UTokenServiceProxy, 0);
+            registry.rebind(Uproceso,(Remote) stub);
+		}
+
+	}
+
+}
