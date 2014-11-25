@@ -33,7 +33,8 @@ public class RTokenServiceProxy implements TokenServiceProxy {
             comp = new TokenServiceMgr[Integer.parseInt(n)];
         	for(int i=0;i<=Integer.parseInt(n);i++)
         	{
-        		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
+        		if(i!=Integer.parseInt(id))
+        			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
         	this.esperar();
 		} catch (Exception e) {
@@ -46,7 +47,8 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 		for(int i=0;i<Integer.parseInt(n);i++)
 		{
 			try {
-				comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
+        		if(i!=Integer.parseInt(id))
+        			comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
 			} catch (NumberFormatException | RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +63,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 		{
 			try {
 				comp[UTokenServiceMgr.TokenP.getFirstQueue()].passToken(UTokenServiceMgr.TokenP);
+				UTokenServiceMgr.quitarToken();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,8 +73,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 
 	@Override
 	public boolean hasToken() {
-		// TODO Auto-generated method stub
-		return false;
+		return UTokenServiceMgr.hasToken();
 	}
 
 	public static void esperar() throws InterruptedException 
