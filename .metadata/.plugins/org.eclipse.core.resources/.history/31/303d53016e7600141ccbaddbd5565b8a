@@ -10,7 +10,9 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Controlador 
 {
-	private static Token TokenU;
+	private String[] proceso;
+	private static String NToken = "UToken";
+	
 	public static void main(String[] args) 
 	{
 		if (System.getSecurityManager() == null) {
@@ -23,9 +25,7 @@ public class Controlador
         	for(int i=0;i<=Integer.parseInt(args[1]);i++)
         	{
         		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
-        		comp[i].start();
         	}
-			comp[0].passToken(TokenU);
         } catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
