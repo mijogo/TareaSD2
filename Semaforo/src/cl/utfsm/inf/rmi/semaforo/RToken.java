@@ -12,7 +12,8 @@ public class RToken implements Token
 	private static final long serialVersionUID = -1522577255399452944L;
 	private int[] LN;
 	private List<Integer> Q = new ArrayList<Integer>();
-	
+	public RToken()
+	{}
 	@Override
 	public void finishRequest(int id, int[] RN, int n) {
 		LN = RN;

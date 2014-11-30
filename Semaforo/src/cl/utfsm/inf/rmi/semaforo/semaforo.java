@@ -14,15 +14,11 @@ public class Semaforo {
 	
 	public static void main(String[] args) 
 	{
-		if (System.getSecurityManager() == null) 
-		{
-            System.setSecurityManager(new SecurityManager());
-        }
+
 		try
 		{
-            
             //TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy(args[0],args[1],args[2]);
-			TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy("semaforo","1","0");
+			TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy("Semaforo","1","0");
         	while(true)
         	{
         		//procesamiento

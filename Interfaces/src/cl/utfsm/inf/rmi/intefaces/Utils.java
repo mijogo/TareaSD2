@@ -6,8 +6,7 @@ public class Utils {
 	
 	
 	public static void setCodeBase(Class<?> c) {
-		String ruta = c.getProtectionDomain().getCodeSource()
-					   .getLocation().toString();
+		String ruta = c.getProtectionDomain().getCodeSource().getLocation().toString();
 		
 		String path = System.getProperty(CODEBASE);
 		

@@ -14,22 +14,23 @@ import cl.utfsm.inf.rmi.intefaces.*;
 public class RTokenServiceProxy implements TokenServiceProxy {
 	private static List synchedList = Collections.synchronizedList(new LinkedList());
 	private Registry registry;
-	TokenServiceMgr stub2;
+	TokenServiceMgr stub;
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
+	private static String NToken = "Tproceso1";
 	public RTokenServiceProxy(String prog,String n,String id)
-	{
+	{		
+		Utils.setCodeBase(TokenServiceMgr.class);
 		try
 		{
 			this.prog = prog;
 			this.n = n;
 			this.id = id;
-			Utils.setCodeBase(TokenServiceMgr.class);
-	        this.registry = LocateRegistry.getRegistry(prog);
 	        UTokenServiceMgr = new RTokenServiceMgr(synchedList);
-	        stub2 = (TokenServiceMgr) UnicastRemoteObject.exportObject((Remote) UTokenServiceMgr, 0);
-	        this.registry.rebind("Tproceso"+id,(Remote) stub2); 
+	        stub = (TokenServiceMgr) UnicastRemoteObject.exportObject(UTokenServiceMgr, 0);
+	        this.registry = LocateRegistry.getRegistry();
+	        this.registry.rebind(NToken,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];
         	for(int i=0;i<=Integer.parseInt(n);i++)
@@ -60,7 +61,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	@Override
 	public void freeToken() 
 	{
-		if(!UTokenServiceMgr.TokenP.isEmptyQueue())
+		if(!UTokenServiceMgr.tokenvacio())
 		{
 			try {
 				comp[UTokenServiceMgr.TokenP.getFirstQueue()].passToken(UTokenServiceMgr.TokenP);
@@ -77,7 +78,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 		return UTokenServiceMgr.hasToken();
 	}
 
-	public static void esperar() throws InterruptedException 
+	public void esperar() throws InterruptedException 
 	{
 		synchronized (synchedList) 
 		{

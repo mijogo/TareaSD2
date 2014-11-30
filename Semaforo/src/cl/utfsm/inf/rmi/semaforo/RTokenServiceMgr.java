@@ -14,6 +14,7 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	{
 		usar = synchedList;
 		TengoToken=false;
+		TokenP = new RToken();
 	}
 	@Override
 	public void start() throws RemoteException {
@@ -44,5 +45,9 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	public void quitarToken()
 	{
 		this.TengoToken = false;
+	}
+	public boolean tokenvacio()
+	{
+		return TokenP.isEmptyQueue();
 	}
 }
