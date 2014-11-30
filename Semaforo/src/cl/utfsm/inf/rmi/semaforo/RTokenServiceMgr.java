@@ -17,18 +17,18 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 		TokenP = new RToken();
 	}
 	@Override
-	public void start() throws RemoteException {
+	public void start(){
 		usar.notify();
 	}
 
 	@Override
-	public void stop() throws RemoteException {
+	public void stop(){
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void requestToken(int id, int sn) throws RemoteException {
+	public void requestToken(int id, int sn){
 		RN[id]++;
 		TokenP.finishRequest(id, RN, sn);
 	}

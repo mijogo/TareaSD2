@@ -14,7 +14,6 @@ public class Semaforo {
 	
 	public static void main(String[] args) 
 	{
-
 		try
 		{
             //TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy(args[0],args[1],args[2]);

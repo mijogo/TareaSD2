@@ -18,7 +18,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
-	private static String NToken = "Tproceso1";
+	private static String NToken = "Tproceso0";
 	public RTokenServiceProxy(String prog,String n,String id)
 	{		
 		Utils.setCodeBase(TokenServiceMgr.class);
@@ -33,12 +33,13 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	        this.registry.rebind(NToken,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];
-        	for(int i=0;i<=Integer.parseInt(n);i++)
+        	for(int i=0;i<Integer.parseInt(n);i++)
         	{
         		if(i!=Integer.parseInt(id))
         			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
         	this.esperar();
+    		System.out.println("Hola");
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
@@ -48,13 +49,16 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	public void getToken() {
 		for(int i=0;i<Integer.parseInt(n);i++)
 		{
-			try {
-        		if(i!=Integer.parseInt(id))
-        			comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
-			} catch (NumberFormatException | RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	if(i!=Integer.parseInt(id))
+				try {
+					comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 

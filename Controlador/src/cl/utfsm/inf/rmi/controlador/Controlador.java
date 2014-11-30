@@ -13,14 +13,14 @@ public class Controlador
 	private static Token TokenU;
 	public static void main(String[] args) 
 	{
-		if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
+		Utils.setCodeBase(TokenServiceMgr.class);
         try 
         {
-            Registry registry = LocateRegistry.getRegistry(args[0]);
-        	TokenServiceMgr[] comp = new TokenServiceMgr[Integer.parseInt(args[1])];
-        	for(int i=0;i<=Integer.parseInt(args[1]);i++)
+            Registry registry = LocateRegistry.getRegistry();
+        	//TokenServiceMgr[] comp = new TokenServiceMgr[Integer.parseInt(args[1])];
+            TokenServiceMgr[] comp = new TokenServiceMgr[1];
+        	//for(int i=0;i<=Integer.parseInt(args[1]);i++)
+        	for(int i=0;i<1;i++)
         	{
         		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         		comp[i].start();

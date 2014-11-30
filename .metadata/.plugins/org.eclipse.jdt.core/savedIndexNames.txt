@@ -6,7 +6,6 @@ INDEX VERSION 1.127+D:\Michel\Codigo\TareaSD2\.metadata\.plugins\org.eclipse.jdt
 4155206848.index
 1299022128.index
 4041092966.index
-4256313517.index
 1498219845.index
 3756279438.index
 305854171.index
