@@ -1,0 +1,11 @@
+package cl.utfsm.inf.rmi.controlador;
+
+import cl.utfsm.inf.rmi.intefaces.*;
+
+public class Controlador 
+{
+	private static String nombre = "Controlador";
+	public static void main(String[] args) {
+	}
+
+}

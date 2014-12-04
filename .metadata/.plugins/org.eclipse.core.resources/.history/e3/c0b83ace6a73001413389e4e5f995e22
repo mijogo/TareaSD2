@@ -1,0 +1,35 @@
+package cl.utfsm.inf.rmi.controlador;
+
+import cl.utfsm.inf.rmi.intefaces.*;
+import java.rmi.registry.*;
+import java.io.*;
+
+public class Controlador 
+{
+	private String[] proceso;
+	public static void main(String[] args) 
+	{
+		if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try 
+        {
+        	Token[] comp;
+            Registry registry = LocateRegistry.getRegistry(args[0]);
+        	for(int i=0;i<=Integer.parseInt(args[1]);i++)
+        	{
+        		comp[i] = (Token) registry.lookup("proceso"+i);
+        	}
+            
+            CalculoPI tarea = new CalculoPI(precision);
+            BigDecimal pi = comp.ejecutarTarea(tarea);
+            System.out.println(pi);
+            System.out.println("EjemploCalculoPI: fin!");
+                                               
+                                                
+        } catch (Exception e) {
+            System.err.println(" " + e.getMessage());
+            e.printStackTrace();
+        }
+	}
+}
