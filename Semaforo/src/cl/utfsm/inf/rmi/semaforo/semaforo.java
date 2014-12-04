@@ -17,8 +17,8 @@ public class Semaforo {
 	{
 		try
 		{
-            //TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy(args[0],args[1],args[2]);
-			TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy("Semaforo","1","0");
+            TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy(args[0],args[1]);
+			//TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy("1","0");
         	while(true)
         	{
         		//procesamiento

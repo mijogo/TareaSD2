@@ -1,16 +1,5 @@
-INDEX VERSION 1.126+/media/windows/.metadata/.plugins/org.eclipse.jdt.core
-2031085872.index
-207581026.index
-726145421.index
-1225813827.index
-2913048097.index
-2064907913.index
-3305932411.index
-829174997.index
-3693448964.index
-2351961482.index
-1453598739.index
-3832095003.index
+INDEX VERSION 1.127+/home/mjofre/TareaSD2/.metadata/.plugins/org.eclipse.jdt.core
 882692029.index
-1279675953.index
-4201408329.index
+829174997.index
+2351961482.index
+570087620.index

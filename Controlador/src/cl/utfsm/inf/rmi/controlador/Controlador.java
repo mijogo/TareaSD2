@@ -13,10 +13,13 @@ public class Controlador
 	private static Token TokenU;
 	public static void main(String[] args) 
 	{
-		Utils.setCodeBase(TokenServiceMgr.class);
+		Registry registry;
+		String serverAddress="localhost";
+		String serverPort="3232";
+		String text=args[0];
         try 
         {
-            Registry registry = LocateRegistry.getRegistry();
+            registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
         	//TokenServiceMgr[] comp = new TokenServiceMgr[Integer.parseInt(args[1])];
             TokenServiceMgr[] comp = new TokenServiceMgr[1];
         	//for(int i=0;i<=Integer.parseInt(args[1]);i++)

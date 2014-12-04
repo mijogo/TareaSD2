@@ -1,5 +1,6 @@
 package cl.utfsm.inf.rmi.semaforo;
 
+import java.net.InetAddress;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,22 +15,24 @@ import cl.utfsm.inf.rmi.intefaces.*;
 public class RTokenServiceProxy implements TokenServiceProxy {
 	private static List synchedList = Collections.synchronizedList(new LinkedList());
 	private Registry registry;
+    String	thisAddress;
+    int	thisPort;
 	TokenServiceMgr stub;
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
 	private static String NToken = "Tproceso0";
-	public RTokenServiceProxy(String prog,String n,String id)
-	{		
-		Utils.setCodeBase(TokenServiceMgr.class);
+	public RTokenServiceProxy(String n,String id)
+	{	
 		try
 		{
-			this.prog = prog;
+            thisAddress = (InetAddress.getLocalHost()).toString();
+            thisPort=3232;
 			this.n = n;
 			this.id = id;
 	        UTokenServiceMgr = new RTokenServiceMgr(synchedList);
+	        this.registry = LocateRegistry.createRegistry( thisPort );
 	        stub = (TokenServiceMgr) UnicastRemoteObject.exportObject(UTokenServiceMgr, 0);
-	        this.registry = LocateRegistry.getRegistry();
 	        this.registry.rebind(NToken,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];

@@ -1,0 +1,33 @@
+package rmiprueba;
+
+import java.rmi.*;
+import java.rmi.registry.*;
+import java.net.*;
+
+public class RmiClient
+{
+    static public void main(String args[])
+    {
+       ReceiveMessageInterface rmiServer;
+       Registry registry;
+       String serverAddress="RmiClient";
+       String serverPort="3232";
+       String text="Probemos";
+       System.out.println("sending "+text+" to "+serverAddress+":"+serverPort);
+       try{
+           registry=LocateRegistry.getRegistry(
+               serverAddress,
+               (new Integer(serverPort)).intValue()
+           );
+           rmiServer=
+              (ReceiveMessageInterface)(registry.lookup("rmiServer"));
+           rmiServer.receiveMessage(text);
+       }
+       catch(RemoteException e){
+           e.printStackTrace();
+       }
+       catch(NotBoundException e){
+           e.printStackTrace();
+       }
+    }
+}
