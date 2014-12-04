@@ -38,7 +38,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
         		if(i!=Integer.parseInt(id))
         			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
-        	this.esperar();
+        	//this.esperar();
     		System.out.println("Hola");
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());
@@ -53,13 +53,15 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 				try {
 					comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
+					//  Auto-generated catch block
 					e.printStackTrace();
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
+					//  Auto-generated catch block
 					e.printStackTrace();
 				}
 		}
+		//TODO Bloquear aqui hasta que llegue el token
+		while(!UTokenServiceMgr.hasToken());
 	}
 
 	@Override

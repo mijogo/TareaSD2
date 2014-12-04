@@ -10,6 +10,7 @@ import cl.utfsm.inf.rmi.intefaces.*;
 public class Semaforo {
 	//private static String Uproceso = "Uproceso";
 	//private static String Tproceso = "Tproceso";
+	//para levantar rmi rmiregistry -J-Djava.rmi.server.useCodebaseOnly=false
 	private static String NToken = "UToken";
 	
 	public static void main(String[] args) 
@@ -23,7 +24,9 @@ public class Semaforo {
         		//procesamiento
         		 Thread.sleep(1000);
         		 UTokenServiceProxy.getToken();
+        		 System.out.println("estoy en seccion critica.");
         		 //seccion critica
+        		 Thread.sleep(2000);
         		 UTokenServiceProxy.freeToken();
         	}
             

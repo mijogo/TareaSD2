@@ -23,7 +23,7 @@ public class Controlador
         	for(int i=0;i<1;i++)
         	{
         		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
-        		comp[i].start();
+        		//comp[i].start();
         	}
 			comp[0].passToken(TokenU);
         } catch (Exception e) {

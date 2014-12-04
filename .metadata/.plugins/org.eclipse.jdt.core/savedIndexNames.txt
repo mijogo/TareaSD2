@@ -1,17 +1,16 @@
-INDEX VERSION 1.127+D:\Michel\Codigo\TareaSD2\.metadata\.plugins\org.eclipse.jdt.core
-3974580528.index
-1697886153.index
-4108727661.index
-163172794.index
-4155206848.index
-1299022128.index
-4041092966.index
-1498219845.index
-3756279438.index
-305854171.index
-1115467115.index
-3133528496.index
-30765161.index
-1454112807.index
-3065916431.index
-1995173708.index
+INDEX VERSION 1.126+/media/windows/.metadata/.plugins/org.eclipse.jdt.core
+2031085872.index
+207581026.index
+726145421.index
+1225813827.index
+2913048097.index
+2064907913.index
+3305932411.index
+829174997.index
+3693448964.index
+2351961482.index
+1453598739.index
+3832095003.index
+882692029.index
+1279675953.index
+4201408329.index
