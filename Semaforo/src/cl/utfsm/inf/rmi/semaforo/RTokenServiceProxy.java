@@ -42,7 +42,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
         			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
         	//this.esperar();
-    		System.out.println("Hola");
+    		System.out.println("Semaforo: Verde.");
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
@@ -50,6 +50,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	}
 	@Override
 	public void getToken() {
+		System.out.println("Semaforo: Amarillo.");
 		for(int i=0;i<Integer.parseInt(n);i++)
 		{
         	if(i!=Integer.parseInt(id))
@@ -64,12 +65,19 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 				}
 		}
 		//TODO Bloquear aqui hasta que llegue el token
-		while(!UTokenServiceMgr.hasToken());
+		while(!UTokenServiceMgr.hasToken()){
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
 	public void freeToken() 
 	{
+		System.out.println("Semaforo: Verde.");
 		if(!UTokenServiceMgr.tokenvacio())
 		{
 			try {

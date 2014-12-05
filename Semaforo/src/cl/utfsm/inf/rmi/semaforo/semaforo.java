@@ -24,7 +24,7 @@ public class Semaforo {
         		//procesamiento
         		 Thread.sleep(1000);
         		 UTokenServiceProxy.getToken();
-        		 System.out.println("estoy en seccion critica.");
+        		 System.out.println("Semaforo: Rojo.");
         		 //seccion critica
         		 Thread.sleep(2000);
         		 UTokenServiceProxy.freeToken();

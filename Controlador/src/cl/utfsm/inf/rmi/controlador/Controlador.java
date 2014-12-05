@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Controlador 
 {
-	private static Token TokenU;
+	private static Token TokenU = new RToken();
 	public static void main(String[] args) 
 	{
 		Registry registry;
@@ -29,6 +29,7 @@ public class Controlador
         		//comp[i].start();
         	}
 			comp[0].passToken(TokenU);
+			System.out.println("Token enviado a Tproceso:0");
         } catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
