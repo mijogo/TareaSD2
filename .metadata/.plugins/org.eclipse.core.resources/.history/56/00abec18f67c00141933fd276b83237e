@@ -1,0 +1,56 @@
+package cl.utfsm.inf.rmi.semaforo;
+
+import java.rmi.RemoteException;
+import java.util.List;
+
+import cl.utfsm.inf.rmi.intefaces.*;
+
+public class RTokenServiceMgr implements TokenServiceMgr {
+	private List usar;
+	public Token TokenP;
+	private int[] RN;
+	private boolean TengoToken,started =false;
+	public RTokenServiceMgr(List synchedList )
+	{
+		usar = synchedList;
+		TengoToken=false;
+		TokenP = new RToken();
+	}
+	@Override
+	public void start(){
+		started = true;
+	}
+
+	@Override
+	public void stop(){
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void requestToken(int id, int sn){
+		RN[id]++;
+		TokenP.finishRequest(id, RN, sn);
+	}
+
+	@Override
+	public void passToken(Token TokenU) {
+		this.TokenP=TokenU;
+		this.TengoToken=true;
+	}
+	public boolean hasToken()
+	{
+		return this.TengoToken;
+	}
+	public void quitarToken()
+	{
+		this.TengoToken = false;
+	}
+	public boolean tokenvacio()
+	{
+		return TokenP.isEmptyQueue();
+	}
+	public boolean hasStarted(){
+		return this.started;
+	}
+}

@@ -16,12 +16,12 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	private static List synchedList = Collections.synchronizedList(new LinkedList());
 	private Registry registry;
     String	thisAddress;
-    int	thisPort;
+    int	thisPort,sn=0;
 	TokenServiceMgr stub;
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
-	private static String NToken = "Tproceso0";
+	private static String NToken = "Tproceso";
 	public RTokenServiceProxy(String n,String id)
 	{	
 		try
@@ -30,19 +30,31 @@ public class RTokenServiceProxy implements TokenServiceProxy {
             thisPort=3232;
 			this.n = n;
 			this.id = id;
-	        UTokenServiceMgr = new RTokenServiceMgr(synchedList);
-	        this.registry = LocateRegistry.createRegistry( thisPort );
+	        UTokenServiceMgr = new RTokenServiceMgr(synchedList,Integer.parseInt(n));
+	        this.registry = LocateRegistry.getRegistry(thisPort);
+	        try {
+				this.registry.list();
+			} catch (Exception e) {
+				this.registry = LocateRegistry.createRegistry( thisPort );
+			}
 	        stub = (TokenServiceMgr) UnicastRemoteObject.exportObject(UTokenServiceMgr, 0);
-	        this.registry.rebind(NToken,stub); 
+	        this.registry.rebind(NToken+id,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];
+            while(!UTokenServiceMgr.hasStarted()){
+            	try {
+    				Thread.sleep(500);
+    			} catch (InterruptedException e) {
+    				e.printStackTrace();
+    			}
+            }
         	for(int i=0;i<Integer.parseInt(n);i++)
         	{
         		if(i!=Integer.parseInt(id))
         			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
         	//this.esperar();
-    		System.out.println("Hola");
+    		System.out.println("Semaforo_"+id+": Verde.");
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
@@ -50,30 +62,44 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	}
 	@Override
 	public void getToken() {
-		for(int i=0;i<Integer.parseInt(n);i++)
-		{
-        	if(i!=Integer.parseInt(id))
+		System.out.println("Semaforo_"+id+": Amarillo.");
+		if(!UTokenServiceMgr.hasToken()){
+			sn++;
+			for(int i=0;i<Integer.parseInt(n);i++)
+			{
+	        	if(i!=Integer.parseInt(id))
+					try {
+						comp[i].requestToken(Integer.parseInt(this.id),sn);
+					} catch (NumberFormatException e) {
+						//  Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						//  Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+			//TODO Bloquear aqui hasta que llegue el token
+			while(!UTokenServiceMgr.hasToken()){
 				try {
-					comp[i].requestToken(Integer.parseInt(this.id), Integer.parseInt(this.n));
-				} catch (NumberFormatException e) {
-					//  Auto-generated catch block
-					e.printStackTrace();
-				} catch (RemoteException e) {
-					//  Auto-generated catch block
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+			}
+			System.out.println("Semaforo_"+id+" tiene el token");
 		}
-		//TODO Bloquear aqui hasta que llegue el token
-		while(!UTokenServiceMgr.hasToken());
 	}
 
 	@Override
 	public void freeToken() 
 	{
+		System.out.println("Semaforo_"+id+": Verde.");
 		if(!UTokenServiceMgr.tokenvacio())
 		{
 			try {
-				comp[UTokenServiceMgr.TokenP.getFirstQueue()].passToken(UTokenServiceMgr.TokenP);
+				int target = UTokenServiceMgr.TokenP.getFirstQueue();
+				comp[target].passToken(UTokenServiceMgr.TokenP);
+				System.out.println("Pasando el token a el semaforo_"+target);
 				UTokenServiceMgr.quitarToken();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

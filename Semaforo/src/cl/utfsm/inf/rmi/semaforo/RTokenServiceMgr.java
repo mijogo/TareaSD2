@@ -9,16 +9,19 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	private List usar;
 	public Token TokenP;
 	private int[] RN;
-	private boolean TengoToken;
-	public RTokenServiceMgr(List synchedList )
+	private int n;
+	private boolean TengoToken,started =false;
+	public RTokenServiceMgr(List synchedList, int n)
 	{
 		usar = synchedList;
 		TengoToken=false;
-		TokenP = new RToken();
+		TokenP = new RToken(n);
+		RN = new int[n];
+		this.n = n;
 	}
 	@Override
 	public void start(){
-		usar.notify();
+		started = true;
 	}
 
 	@Override
@@ -29,8 +32,11 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 
 	@Override
 	public void requestToken(int id, int sn){
-		RN[id]++;
-		TokenP.finishRequest(id, RN, sn);
+		if(RN[id]<sn){
+			RN[id]=sn;
+			TokenP.finishRequest(id, RN, this.n);
+		}
+		
 	}
 
 	@Override
@@ -49,5 +55,8 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	public boolean tokenvacio()
 	{
 		return TokenP.isEmptyQueue();
+	}
+	public boolean hasStarted(){
+		return this.started;
 	}
 }
