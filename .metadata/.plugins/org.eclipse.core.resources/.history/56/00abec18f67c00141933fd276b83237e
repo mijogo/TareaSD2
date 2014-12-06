@@ -9,15 +9,12 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	private List usar;
 	public Token TokenP;
 	private int[] RN;
-	private int n;
 	private boolean TengoToken,started =false;
-	public RTokenServiceMgr(List synchedList, int n)
+	public RTokenServiceMgr(List synchedList )
 	{
 		usar = synchedList;
 		TengoToken=false;
-		TokenP = new RToken(n);
-		RN = new int[n];
-		this.n = n;
+		TokenP = new RToken();
 	}
 	@Override
 	public void start(){
@@ -32,11 +29,8 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 
 	@Override
 	public void requestToken(int id, int sn){
-		if(RN[id]<sn){
-			RN[id]=sn;
-			TokenP.finishRequest(id, RN, this.n);
-		}
-		
+		RN[id]++;
+		TokenP.finishRequest(id, RN, sn);
 	}
 
 	@Override

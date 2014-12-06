@@ -31,6 +31,6 @@ public class RToken implements Token
 	
 	@Override
 	public int getFirstQueue() {
-		return Q.remove(0);
+		return Q.remove(getFirstQueue());
 	}
 }

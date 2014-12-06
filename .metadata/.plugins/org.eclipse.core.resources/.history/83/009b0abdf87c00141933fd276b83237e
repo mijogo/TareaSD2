@@ -18,10 +18,10 @@ public class RToken implements Token
 	public void finishRequest(int id, int[] RN, int n) {
 		for (int i = 0; i < n; i++) {
 			if (RN[i]==LN[i]+1) {
-				LN[i]=RN[i];				
-				Q.add(i);
+				
 			}
 		}
+		Q.add(id);
 	}
 	
 	@Override
@@ -31,6 +31,6 @@ public class RToken implements Token
 	
 	@Override
 	public int getFirstQueue() {
-		return Q.remove(0);
+		return Q.remove(getFirstQueue());
 	}
 }

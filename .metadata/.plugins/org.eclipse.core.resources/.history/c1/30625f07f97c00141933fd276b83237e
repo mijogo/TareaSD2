@@ -10,14 +10,13 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Controlador 
 {
-	private static Token TokenU;
+	private static Token TokenU = new RToken();
 	public static void main(String[] args) 
 	{
 		Registry registry;
 		String serverAddress="localhost";
 		String serverPort="3232";
 		int n=Integer.parseInt(args[0]);
-		TokenU = new RToken(n);
         try 
         {
             registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());

@@ -16,7 +16,9 @@ public class RToken implements Token
 	{LN = new int[n];}
 	@Override
 	public void finishRequest(int id, int[] RN, int n) {
+		System.out.println("invocado finishRequest");
 		for (int i = 0; i < n; i++) {
+			System.out.println(RN[i]+"=="+LN[i]+"+1");
 			if (RN[i]==LN[i]+1) {
 				LN[i]=RN[i];				
 				Q.add(i);
@@ -31,6 +33,6 @@ public class RToken implements Token
 	
 	@Override
 	public int getFirstQueue() {
-		return Q.remove(0);
+		return Q.remove(getFirstQueue());
 	}
 }

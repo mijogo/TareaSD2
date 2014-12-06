@@ -16,7 +16,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	private static List synchedList = Collections.synchronizedList(new LinkedList());
 	private Registry registry;
     String	thisAddress;
-    int	thisPort,sn=0;
+    int	thisPort,sn=1;
 	TokenServiceMgr stub;
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
@@ -86,7 +86,6 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("Semaforo_"+id+" tiene el token");
 		}
 	}
 
@@ -97,9 +96,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 		if(!UTokenServiceMgr.tokenvacio())
 		{
 			try {
-				int target = UTokenServiceMgr.TokenP.getFirstQueue();
-				comp[target].passToken(UTokenServiceMgr.TokenP);
-				System.out.println("Pasando el token a el semaforo_"+target);
+				comp[UTokenServiceMgr.TokenP.getFirstQueue()].passToken(UTokenServiceMgr.TokenP);
 				UTokenServiceMgr.quitarToken();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

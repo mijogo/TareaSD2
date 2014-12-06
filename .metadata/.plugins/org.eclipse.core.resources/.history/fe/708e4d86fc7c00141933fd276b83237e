@@ -34,7 +34,7 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	public void requestToken(int id, int sn){
 		if(RN[id]<sn){
 			RN[id]=sn;
-			TokenP.finishRequest(id, RN, this.n);
+			TokenP.finishRequest(id, RN, );
 		}
 		
 	}
