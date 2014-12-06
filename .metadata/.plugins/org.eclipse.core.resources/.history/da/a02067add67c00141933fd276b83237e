@@ -21,7 +21,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
-	private static String NToken = "Tproceso";
+	private static String NToken = "Tproceso0";
 	public RTokenServiceProxy(String n,String id)
 	{	
 		try
@@ -38,7 +38,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 				this.registry = LocateRegistry.createRegistry( thisPort );
 			}
 	        stub = (TokenServiceMgr) UnicastRemoteObject.exportObject(UTokenServiceMgr, 0);
-	        this.registry.rebind(NToken+id,stub); 
+	        this.registry.rebind(NToken,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];
             while(!UTokenServiceMgr.hasStarted()){

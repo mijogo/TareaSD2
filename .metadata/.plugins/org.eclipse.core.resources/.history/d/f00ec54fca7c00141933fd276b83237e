@@ -9,7 +9,8 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	private List usar;
 	public Token TokenP;
 	private int[] RN;
-	private boolean TengoToken,started =false;
+	public boolean started =false;
+	private boolean TengoToken;
 	public RTokenServiceMgr(List synchedList )
 	{
 		usar = synchedList;
@@ -18,7 +19,7 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	}
 	@Override
 	public void start(){
-		started = true;
+		usar.notify();
 	}
 
 	@Override
@@ -49,8 +50,5 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	public boolean tokenvacio()
 	{
 		return TokenP.isEmptyQueue();
-	}
-	public boolean hasStarted(){
-		return this.started;
 	}
 }

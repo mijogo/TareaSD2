@@ -16,7 +16,7 @@ public class Semaforo {
 	public static void main(String[] args) 
 	{
 		try
-		{	System.out.println("Iniciando Semaforo_"+ args[1]+"...");
+		{
             TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy(args[0],args[1]);
 			//TokenServiceProxy UTokenServiceProxy = new RTokenServiceProxy("1","0");
         	while(true)
@@ -24,7 +24,7 @@ public class Semaforo {
         		//procesamiento
         		 Thread.sleep(1000);
         		 UTokenServiceProxy.getToken();
-        		 System.out.println("Semaforo_"+ args[1]+": Rojo.");
+        		 System.out.println("Semaforo: Rojo.");
         		 //seccion critica
         		 Thread.sleep(2000);
         		 UTokenServiceProxy.freeToken();

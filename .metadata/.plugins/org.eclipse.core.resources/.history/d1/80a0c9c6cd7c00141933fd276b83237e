@@ -18,7 +18,7 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	}
 	@Override
 	public void start(){
-		started = true;
+		started =true;
 	}
 
 	@Override
@@ -52,5 +52,6 @@ public class RTokenServiceMgr implements TokenServiceMgr {
 	}
 	public boolean hasStarted(){
 		return this.started;
+		
 	}
 }

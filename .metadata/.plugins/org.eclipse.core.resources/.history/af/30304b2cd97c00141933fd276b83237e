@@ -25,8 +25,7 @@ public class Controlador
         	{
         		comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         		comp[i].start();
-        		Thread.sleep(500)
-;        	}
+        	}
 			comp[0].passToken(TokenU);
 			System.out.println("Token enviado a Tproceso:0");
         } catch (Exception e) {

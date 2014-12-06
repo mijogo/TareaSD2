@@ -21,7 +21,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	RTokenServiceMgr UTokenServiceMgr;
 	TokenServiceMgr[] comp;
 	String prog,n,id;
-	private static String NToken = "Tproceso";
+	private static String NToken = "Tproceso0";
 	public RTokenServiceProxy(String n,String id)
 	{	
 		try
@@ -31,14 +31,9 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 			this.n = n;
 			this.id = id;
 	        UTokenServiceMgr = new RTokenServiceMgr(synchedList);
-	        this.registry = LocateRegistry.getRegistry(thisPort);
-	        try {
-				this.registry.list();
-			} catch (Exception e) {
-				this.registry = LocateRegistry.createRegistry( thisPort );
-			}
+	        this.registry = LocateRegistry.createRegistry( thisPort );
 	        stub = (TokenServiceMgr) UnicastRemoteObject.exportObject(UTokenServiceMgr, 0);
-	        this.registry.rebind(NToken+id,stub); 
+	        this.registry.rebind(NToken,stub); 
             Thread.sleep(5000);            
             comp = new TokenServiceMgr[Integer.parseInt(n)];
             while(!UTokenServiceMgr.hasStarted()){
@@ -54,7 +49,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
         			comp[i] = (TokenServiceMgr) registry.lookup("Tproceso"+i);
         	}
         	//this.esperar();
-    		System.out.println("Semaforo_"+id+": Verde.");
+    		System.out.println("Semaforo: Verde.");
 		} catch (Exception e) {
             System.err.println(" " + e.getMessage());
             e.printStackTrace();
@@ -62,7 +57,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	}
 	@Override
 	public void getToken() {
-		System.out.println("Semaforo_"+id+": Amarillo.");
+		System.out.println("Semaforo: Amarillo.");
 		for(int i=0;i<Integer.parseInt(n);i++)
 		{
         	if(i!=Integer.parseInt(id))
@@ -89,7 +84,7 @@ public class RTokenServiceProxy implements TokenServiceProxy {
 	@Override
 	public void freeToken() 
 	{
-		System.out.println("Semaforo_"+id+": Verde.");
+		System.out.println("Semaforo: Verde.");
 		if(!UTokenServiceMgr.tokenvacio())
 		{
 			try {
